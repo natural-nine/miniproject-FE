@@ -1,25 +1,20 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
-import Header from "../components/Header";
-import Modal from "../components/Modal";
-import Login from "./Login";
-import Signup from "./Signup";
+
 
 const Main = () => {
 
 
   return (
-    <div>
-      <Header/>
-      home
-    </div>
-  );
+
+<Wrap>home</Wrap>
+  )
 };
 
 const Wrap = styled.div`
 display:flex;
 background-color:gold;
+padding:40px 80px;
 `;
 
 export default Main;

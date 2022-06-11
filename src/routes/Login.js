@@ -3,10 +3,13 @@ import styled from "styled-components";
 
 const Login = () => {
   const navigate = useNavigate();
+
+
+  
   return (
     <Wrap>
-      <h2>로그인</h2>
       <Container>
+        <h2>로그인</h2>
         <Input type="text" placeholder="ID" />
         <br />
         <Input type="password" placeholder="PASSWORD" />
@@ -44,7 +47,7 @@ const Container = styled.div`
     height: 48px;
     margin-top: 15px;
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 400;
     color: white;
     background-color: #00c4c4;
     outline: none;

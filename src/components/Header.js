@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Login from "../routes/Login";
+import Signup from "../routes/Signup";
 import Modal from "./Modal";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(false);
   
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen_, setModalOpen_] = useState(false);
 
   const openModal = () => {
     setModalOpen(true);
@@ -15,10 +17,25 @@ const Header = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+    const openModal_ = () => {
+      setModalOpen_(true);
+    };
+    const closeModal_ = () => {
+      setModalOpen_(false);
+    };
+
+
   return (
     <Wrap>
       <div>
-        <h1>LOGO</h1>
+        <h1
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          LOGO
+        </h1>
       </div>
 
       <div>
@@ -27,13 +44,18 @@ const Header = () => {
           <Login />
         </Modal>
 
-        <Span
+        {/* <Span
           onClick={() => {
             navigate("/user/signup");
           }}
         >
           회원가입
-        </Span>
+        </Span> */}
+
+        <Span onClick={openModal_}>회원가입</Span>
+        <Modal open={modalOpen_} close={closeModal_} header="">
+          <Signup />
+        </Modal>
       </div>
     </Wrap>
   );
@@ -46,12 +68,17 @@ const Wrap = styled.div`
   align-items: center;
   height: 58px;
   align-content: center;
-  padding: 0 80px;
+  padding: 7px 80px;
+
+  & h1 {
+    margin: 0px;
+    cursor: pointer;
+  }
 `;
 
 const Span = styled.span`
-margin-left:10px;
-cursor: pointer;
+  margin-left: 10px;
+  cursor: pointer;
 `;
 
 export default Header;

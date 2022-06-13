@@ -1,10 +1,25 @@
-import React from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Header from "../components/Header";
+import Modal from "../components/Modal";
+import Login from "./Login";
+import Signup from "./Signup";
+
+const Main = () => {
 
 
-const Home = () => {
-    return(
-        <h1>This is Home Page</h1>
-    )
-}
+  return (
+    <div>
+      <Header/>
+      home
+    </div>
+  );
+};
 
-export default Home;
+const Wrap = styled.div`
+display:flex;
+background-color:gold;
+`;
+
+export default Main;

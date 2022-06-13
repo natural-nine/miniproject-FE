@@ -1,29 +1,31 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
   return (
     <Wrap>
-      <h2>로그인</h2>
       <Container>
-        <Input type="text" placeholder="ID" />
+        <h2>회원가입</h2>
+        <Input type="text" placeholder="아이디" />
         <br />
-        <Input type="password" placeholder="PASSWORD" />
+        <Input type="password" placeholder="비밀번호" />
         <br />
-        <button>로그인</button>
-
-        <p>
-          아직 계정이 없나요 ?{" "}
-          <Point
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              navigate("/user/signup");
-            }}
-          >
-            회원가입
-          </Point>
-        </p>
+        <Input type="password" placeholder="비밀번호 확인" />
+        <br />
+        <button>가입하기</button>
+        <div>
+          <p>
+            이미 계정이 있나요 ?  
+            <Point
+              onClick={() => {
+                navigate("/user/login");
+              }}
+            >
+              로그인
+            </Point>
+          </p>
+        </div>
       </Container>
     </Wrap>
   );
@@ -31,10 +33,12 @@ const Login = () => {
 
 
 const Wrap = styled.div`
-display:flex;
-flex-direction:column;
-align-items:center;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center;
+ 
+  margin: auto;
 `;
 const Container = styled.div`
   box-sizing: border-box;
@@ -83,7 +87,7 @@ const Point = styled.span`
   color: #00c4c4;
   text-decoration: underline;
   cursor: "pointer";
-  margin-left: 15px;
+  margin-left:15px;
 `;
 
-export default Login;
+export default Signup;

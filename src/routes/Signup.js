@@ -42,10 +42,10 @@ const Signup = () => {
       return;
     }
 
-    if (pwd !== pwd_chk) {
-      window.alert("비밀번호가 일치하지 않습니다!");
-      return;
-    }
+    // if (pwd !== pwd_chk) {
+    //   window.alert("비밀번호가 일치하지 않습니다!");
+    //   return;
+    // }
     
    dispatch(createUserDB(id,pwd,pwd_chk));
     
@@ -77,8 +77,13 @@ const Signup = () => {
             setId(e.target.value);
           }}
         />
-        <button onClick={idChk}>중복확인</button>
+        {/* <span onClick={idChk}>중복확인</span> */}
         <br />
+        {!idCheck(id) ? (
+          <p style={{ fontSize: "12px", color: "red" }}>
+            영문 숫자 포함 6~20자
+          </p>
+        ) : null}
         <Input
           type="password"
           placeholder="비밀번호 (영문,숫자 포함 6~20자)"
@@ -87,6 +92,11 @@ const Signup = () => {
           }}
         />
         <br />
+        {!pwdCheck(pwd) ? (
+          <p style={{ fontSize: "12px", color: "red" }}>
+            영문 숫자 포함 6~20자
+          </p>
+        ) : null}
         <Input
           type="password"
           placeholder="비밀번호 확인"
@@ -95,6 +105,16 @@ const Signup = () => {
           }}
         />
         <br />
+        {pwd !== pwd_chk && pwd.length >= 1 ? (
+          <p style={{ fontSize: "12px", color: "red" }}>
+            비밀번호가 일치하지 않습니다.
+          </p>
+        ) : null}
+        {pwd === pwd_chk && pwd.length > 5 ? (
+          <p style={{ fontSize: "12px", color: "green" }}>
+            비밀번호가 일치합니다.
+          </p>
+        ) : null}
         <button onClick={signup}>가입하기</button>
         <div>
           <p>

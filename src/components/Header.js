@@ -77,6 +77,9 @@ const Wrap = styled.div`
 `;
 
 const Span = styled.span`
+  color: #333;
+  font-weight: 400;
+  font-size: 16px;
   margin-left: 10px;
   cursor: pointer;
 `;

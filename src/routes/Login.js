@@ -1,23 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { loginUserDB } from "../redux/modules/user";
+
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const id_ref = React.useRef();
+  const pw_ref = React.useRef();
+
+  const loginBtn = () => {
+    const id = id_ref.current.value;
+    const pwd = pw_ref.current.value;
+
+    dispatch(loginUserDB(id, pwd));
+
+  };
 
   
+
+
+
+
+
   return (
     <Wrap>
       <Container>
         <h2>로그인</h2>
-        <Input type="text" placeholder="ID" />
+        <Input type="text" placeholder="ID" ref={id_ref} />
         <br />
-        <Input type="password" placeholder="PASSWORD" />
+        <Input type="password" placeholder="PASSWORD" ref={pw_ref} />
         <br />
-        <button>로그인</button>
+        <button onClick={loginBtn}>로그인</button>
 
         <p>
-          아직 계정이 없나요 ?{" "}
+          아직 계정이 없나요 ?
           <Point
             style={{ cursor: "pointer" }}
             onClick={() => {
@@ -32,12 +52,10 @@ const Login = () => {
   );
 };
 
-
 const Wrap = styled.div`
-display:flex;
-flex-direction:column;
-align-items:center;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const Container = styled.div`
   box-sizing: border-box;

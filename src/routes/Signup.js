@@ -2,38 +2,66 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import React from "react";
 
+import { pwdCheck , idCheck } from "../shared/common";
+import { useDispatch } from "react-redux";
+import { createUserDB } from "../redux/modules/user";
+import axios from "axios";
+
+
 const Signup = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [pwd_chk, setPwdChk] = React.useState("");
   
+  // const id_ref = React.useRef();
+  // const pw_ref = React.useRef();
+  // const pwchk_ref = React.useRef();
 
 
-// const passwordCheck = () => {
-//   if (!id_ref.current.value || !pw_ref.current.value || !name_ref.current.value) {
-//     alert("아직 입력하지 않은 항목이 있습니다."); return false;
-//   } if (pw_ref.current.value === pw2_ref.current.value) {
-//     // signupFB();
-//   } else {
-//     window.alert("비밀번호가 일치 하지 않습니다.");
-//   }
-//   };
 
-console.log(id,pwd)
+
   const signup = () => {
+    // const id = id_ref.current.value;
+    // const pwd = pw_ref.current.value;
+    // const pwd_chk = pwchk_ref.current.value;
     
     if (id === "" || pwd === "" || pwd_chk === "") {
       window.alert("모두 입력해 주세요!");
       return;
     }
 
-    if (pwd !== pwd_chk) {
-      window.alert("비밀번호와 비밀번호 확인이 일치하지 않습니다!");
+    if (!idCheck(id)) {
+      window.alert("아이디 형식이 맞지 않습니다!");
       return;
     }
+    if (!pwdCheck(pwd)) {
+      window.alert("비밀번호 형식이 맞지 않습니다!");
+      return;
+    }
+
+    if (pwd !== pwd_chk) {
+      window.alert("비밀번호가 일치하지 않습니다!");
+      return;
+    }
+    
+   dispatch(createUserDB(id,pwd,pwd_chk));
+    
   };
+
+  const idChk = () => {
+   
+     axios.get("http://localhost:5001/user").then((res) => {
+        res.data.map(list => {
+          //console.log(list.username)
+          if (list.username === id) {
+            window.alert("중복된 아이디 입니다.")
+          } 
+       });
+     });
+  }
 
 
 
@@ -44,20 +72,19 @@ console.log(id,pwd)
         <h2>회원가입</h2>
         <Input
           type="text"
-          placeholder="아이디"
+          placeholder="아이디 (영문,숫자 포함 6~20자)"
           onChange={(e) => {
             setId(e.target.value);
           }}
-          defaultValue={id}
         />
+        <button onClick={idChk}>중복확인</button>
         <br />
         <Input
           type="password"
-          placeholder="비밀번호"
+          placeholder="비밀번호 (영문,숫자 포함 6~20자)"
           onChange={(e) => {
             setPwd(e.target.value);
           }}
-          defaultValue={pwd}
         />
         <br />
         <Input
@@ -66,7 +93,6 @@ console.log(id,pwd)
           onChange={(e) => {
             setPwdChk(e.target.value);
           }}
-          defaultValue={pwd_chk}
         />
         <br />
         <button onClick={signup}>가입하기</button>

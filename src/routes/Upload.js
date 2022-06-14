@@ -92,6 +92,7 @@ const Upload = () => {
         let choiceTime = timeRef.current.value;
         if(choiceTime < curruntTime){
             alert("이전 시간은 선택할 수 없습니다.")
+            console.log("hello!")
             choiceTime = curruntTime
         }
     }

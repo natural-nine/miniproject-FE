@@ -13,7 +13,7 @@ const Main = () => {
   useEffect(() => {
     dispatch(getPostDB());
   }, []);
-
+  ////
   return (
     <Wrap>
       {list.map((item, idx) => {

@@ -2,11 +2,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import React from "react";
 
-import { pwdCheck , idCheck } from "../shared/common";
+import { pwdCheck, idCheck } from "../shared/common";
 import { useDispatch } from "react-redux";
 import { createUserDB } from "../redux/modules/user";
 import axios from "axios";
-
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -15,19 +14,16 @@ const Signup = () => {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [pwd_chk, setPwdChk] = React.useState("");
-  
+
   // const id_ref = React.useRef();
   // const pw_ref = React.useRef();
   // const pwchk_ref = React.useRef();
-
-
-
 
   const signup = () => {
     // const id = id_ref.current.value;
     // const pwd = pw_ref.current.value;
     // const pwd_chk = pwchk_ref.current.value;
-    
+
     if (id === "" || pwd === "" || pwd_chk === "") {
       window.alert("모두 입력해 주세요!");
       return;
@@ -46,26 +42,10 @@ const Signup = () => {
     //   window.alert("비밀번호가 일치하지 않습니다!");
     //   return;
     // }
-    
-   dispatch(createUserDB(id,pwd,pwd_chk));
-    
+
+    dispatch(createUserDB(id, pwd, pwd_chk));
   };
 
-  const idChk = () => {
-   
-     axios.get("http://localhost:5001/user").then((res) => {
-        res.data.map(list => {
-          //console.log(list.username)
-          if (list.username === id) {
-            window.alert("중복된 아이디 입니다.")
-          } 
-       });
-     });
-  }
-
-
-
-  
   return (
     <Wrap>
       <Container>

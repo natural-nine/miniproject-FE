@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import Login from "../routes/Login";
 import Signup from "../routes/Signup";
+import { logoutDB } from "../redux/modules/user";
+import { getCookie } from "../shared/cookie";
 import Modal from "./Modal";
 
 const Header = () => {
   const navigate = useNavigate();
-  
+
+  const login = getCookie("is_login");
+
+  // 모달창 관련
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpen_, setModalOpen_] = useState(false);
 
@@ -18,13 +25,12 @@ const Header = () => {
     setModalOpen(false);
   };
 
-    const openModal_ = () => {
-      setModalOpen_(true);
-    };
-    const closeModal_ = () => {
-      setModalOpen_(false);
-    };
-
+  const openModal_ = () => {
+    setModalOpen_(true);
+  };
+  const closeModal_ = () => {
+    setModalOpen_(false);
+  };
 
   return (
     <Wrap>
@@ -39,7 +45,13 @@ const Header = () => {
       </div>
 
       <div>
-        <Span onClick={openModal}>로그인</Span>
+        {login ? (
+          <Span onClick={logoutDB}>로그아웃</Span>
+        ) : (
+          <Span onClick={openModal}>로그인</Span>
+        )}
+        {/* <Span onClick={openModal}>로그인</Span>
+        <Span onClick={logoutDB}>로그아웃</Span> */}
         <Modal open={modalOpen} close={closeModal} header="">
           <Login />
         </Modal>
@@ -51,8 +63,12 @@ const Header = () => {
         >
           회원가입
         </Span> */}
-
-        <Span onClick={openModal_}>회원가입</Span>
+        {login ? (
+          <Span>새 글 등록</Span>
+        ) : (
+          <Span onClick={openModal_}>회원가입</Span>
+        )}
+        {/* <Span onClick={openModal_}>회원가입</Span> */}
         <Modal open={modalOpen_} close={closeModal_} header="">
           <Signup />
         </Modal>

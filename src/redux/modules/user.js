@@ -1,10 +1,11 @@
 import axios from "axios";
 
-import { setCookie } from "../../shared/cookie";
+import { deleteCookie, setCookie } from "../../shared/cookie";
 
 // Actions
 const SIGNUP = "user/SIGNUP";
 const LOGIN = "user/LOGIN";
+const LOGOUT = "user/LOGOUT";
 const SET_USER = "user/SET_USER";
 // const UPDATE = "my-app/widgets/UPDATE";
 // const REMOVE = "my-app/widgets/REMOVE";
@@ -24,6 +25,10 @@ export function createUser(user) {
 
 export function loginUser(user) {
   return { type: LOGIN, user };
+}
+
+export function logoutUser(user) {
+  return { type: LOGOUT, user };
 }
 export function setUser(user) {
   return { type: SET_USER, user };
@@ -69,21 +74,21 @@ export function loginUserDB(id, pwd) {
       )
       .then((res) => {
         console.log(res);
-
+        const username = res.data.username;
         let response = res.data;
         if (!response.result) {
           alert(response.err_msg);
         } else {
           const token = res.headers.jsessionid;
           setCookie("is_login", `${token}`);
-
+          sessionStorage.setItem(`${username}`, `${token}`);
           dispatch(
             setUser({
               username: res.data.username,
             })
           );
 
-          // window.location.href = "/";
+          window.location.href = "/";
         }
       })
       .catch((error) => {
@@ -93,6 +98,17 @@ export function loginUserDB(id, pwd) {
 }
 
 // 로그아웃
+export function logoutDB() {
+  instance.get("/user/logout").then((res) => {
+    const result = res.data.result;
+    console.log(result);
+    if (result === true) {
+      sessionStorage.clear();
+      deleteCookie("is_login");
+      window.location.href = "/";
+    }
+  });
+}
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
@@ -101,6 +117,8 @@ export default function reducer(state = initialState, action = {}) {
     case "user/SET_USER":
       console.log(action);
       return { list: action.user, is_login: true };
+
+    case "user/LOGOUT":
     default:
       return state;
   }

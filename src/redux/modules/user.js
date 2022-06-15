@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import { RESP } from "../../res";
 import { setCookie } from "../../shared/cookie";
 
 // Actions
@@ -18,9 +17,6 @@ const initialState = {
 };
 
 // Action Creators
-// export function loadWidgets() {
-//   return { type: LOAD };
-// }
 
 export function createUser(user) {
   return { type: SIGNUP, user };
@@ -36,29 +32,24 @@ export function setUser(user) {
 //axios
 
 const instance = axios.create({
-
-
-
   //baseURL: "http://localhost:5001",
-
 
   baseURL: "http://54.180.99.78/",
 
   //   headers: { authorization: `Bearer ${getCookie("token")}` },
 });
 
-// 회원가입
 export const createUserDB = (username, password) => {
   return function (dispatch) {
     instance
-      .post("/user/signup", {
-        username: username,
-        password: password,
-      })
+      .post(
+        "/user/signup",
+        { username: username, password: password },
+        { withCredentials: true }
+      )
       .then((res) => {
-        console.log(res);
         window.alert("회원가입 완료!");
-        window.location.replace("user/login");
+        window.location.href = "/user/login";
       })
       .catch((error) => {
         console.log(error);
@@ -67,38 +58,25 @@ export const createUserDB = (username, password) => {
 };
 
 // 로그인
+
 export function loginUserDB(id, pwd) {
   return (dispatch) => {
-    axios
+    instance
       .post(
-        "http://54.180.99.78/user/login",
-        {
-          username: id,
-          password: pwd,
-        }
-        // { withCredentials: true }
+        "/user/login",
+        { username: id, password: pwd },
+        { withCredentials: true }
       )
-      // instance
-      //   .post("/user/login", {
-      //     username: id,
-      //     password: pwd,
-      //   },{ withCredentials: true })
       .then((res) => {
-        console.log(res.data);
-        // const currentUserId = res.data[0].id;
-        // document.cookie = "id" + "=" + currentUserId;
-        // console.log(document.cookie);
-        // dispatch(
-        //   setUser({
-        //     username: res.data.username,
-        //     id: res.data.id,
-        //   })
-        // );
-
-        if (res.data.result === false) {
-          alert(res.data.err_msg);
+        console.log(res);
+        const token = res.headers.jsessionid;
+        setCookie("is_login", `${token}`);
+        let response = res.data;
+        if (!response.result) {
+          alert(response.err_msg);
         } else {
-          alert("로그인 성공");
+          // Server에서 쿠키를 만들어서 보낼 때
+          // window.location.href = "/";
         }
       })
       .catch((error) => {

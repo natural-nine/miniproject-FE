@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { loadPostDB } from "../redux/modules/post";
+import { loadProductDB } from "../redux/modules/productPost";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -9,36 +9,37 @@ import { useNavigate } from "react-router-dom";
 const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const list = useSelector((state) => state.post.list);
-
-  useEffect(() => {
-    dispatch(loadPostDB());
+  const list = useSelector((state) => state.product.list);
+  console.log(list);
+  React.useEffect(() => {
+    dispatch(loadProductDB());
   }, []);
 
   return (
     <Wrap>
-      {list.map((item, idx) => {
-        return (
-          <ListItem key={idx} endChk={item.status}>
-            <ItemBox>
-              <div style={{ overflow: "hidden", height: "200px" }}>
-                <Img src={item.image} />
-              </div>
-              <TitleBox>
-                <Title>{item.title}</Title>
-                <Desc>{item.description}</Desc>
-                <Btn
-                  onClick={() => {
-                    navigate("/detail/:id");
-                  }}
-                >
-                  지금 참여하기 <IoIosArrowForward />
-                </Btn>
-              </TitleBox>
-            </ItemBox>
-          </ListItem>
-        );
-      })}
+      {list !== undefined &&
+        list.map((item, idx) => {
+          return (
+            <ListItem key={idx} endChk={item.status}>
+              <ItemBox>
+                <div style={{ overflow: "hidden", height: "200px" }}>
+                  <Img src={item.image} />
+                </div>
+                <TitleBox>
+                  <Title>{item.title}</Title>
+                  <Desc>{item.description}</Desc>
+                  <Btn
+                    onClick={() => {
+                      navigate("/detail/:id");
+                    }}
+                  >
+                    지금 참여하기 <IoIosArrowForward />
+                  </Btn>
+                </TitleBox>
+              </ItemBox>
+            </ListItem>
+          );
+        })}
     </Wrap>
   );
 };
@@ -56,7 +57,7 @@ const ListItem = styled.div`
   width: 25%;
   padding: 0 16px;
   box-sizing: border-box;
-  filter: ${(props) => (props.endChk ? "grayscale(100%)" : "")};
+  filter: ${(props) => (props.endChk ? "" : "grayscale(100%)")};
 `;
 
 const ItemBox = styled.div`

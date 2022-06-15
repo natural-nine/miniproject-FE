@@ -40,7 +40,7 @@ export function setUser(user) {
 //axios
 
 const instance = axios.create({
-  baseURL: "http://localhost:5001",
+  baseURL: "http://54.180.99.78/",
   //   headers: { authorization: `Bearer ${getCookie("token")}` },
 });
 
@@ -48,7 +48,7 @@ const instance = axios.create({
 export const createUserDB = (username, password) => {
   return function (dispatch) {
     instance
-      .post("/user", {
+      .post("/user/signup", {
         username: username,
         password: password,
       })

@@ -1,4 +1,3 @@
-
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import {getStorage} from "firebase/storage"
 import {initializeApp} from "firebase/app"
@@ -27,7 +26,10 @@ const app = initializeApp(firebaseConfig);
 const middlewares = [thunk];
 
 const enhancer = applyMiddleware(...middlewares);
+
+
 const rootReducer = combineReducers({ user,post, product });
+
 const store = createStore(rootReducer, enhancer);
 export const storage = getStorage();
 export default store;

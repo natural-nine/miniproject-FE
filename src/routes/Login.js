@@ -4,7 +4,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { loginUserDB } from "../redux/modules/user";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,14 +16,7 @@ const Login = () => {
     const pwd = pw_ref.current.value;
 
     dispatch(loginUserDB(id, pwd));
-
   };
-
-  
-
-
-
-
 
   return (
     <Wrap>

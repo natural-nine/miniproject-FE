@@ -1,17 +1,18 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getPostDB } from "../redux/modules/post";
-import { RESP } from "../res";
+import { loadPostDB } from "../redux/modules/post";
+
 import { IoIosArrowForward } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const list = useSelector((state) => state.post.list);
 
   useEffect(() => {
-    dispatch(getPostDB());
+    dispatch(loadPostDB());
   }, []);
 
   return (
@@ -26,7 +27,11 @@ const Main = () => {
               <TitleBox>
                 <Title>{item.title}</Title>
                 <Desc>{item.description}</Desc>
-                <Btn>
+                <Btn
+                  onClick={() => {
+                    navigate("/detail/:id");
+                  }}
+                >
                   지금 참여하기 <IoIosArrowForward />
                 </Btn>
               </TitleBox>

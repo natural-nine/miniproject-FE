@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { RESP } from "../../res";
 import { setCookie } from "../../shared/cookie";
 
@@ -11,10 +12,9 @@ const SET_USER = "user/SET_USER";
 
 const initialState = {
   user: {
-    username: "",
-    password: "",
+    user: null,
+    is_Login: false,
   },
-  isLogin: false,
 };
 
 // Action Creators
@@ -33,14 +33,14 @@ export function setUser(user) {
   return { type: SET_USER, user };
 }
 
-// export function removeWidget(widget) {
-//   return { type: REMOVE, widget };
-// }
-
 //axios
 
 const instance = axios.create({
-  baseURL: "http://localhost:5001",
+  //baseURL: "http://13.124.56.79",
+  baseURL: "http://54.180.99.78",
+
+  //baseURL: "http://localhost:5001",
+
   //   headers: { authorization: `Bearer ${getCookie("token")}` },
 });
 
@@ -48,14 +48,14 @@ const instance = axios.create({
 export const createUserDB = (username, password) => {
   return function (dispatch) {
     instance
-      .post("/user", {
+      .post("/user/signup", {
         username: username,
         password: password,
       })
       .then((res) => {
         console.log(res);
         window.alert("회원가입 완료!");
-        //window.location.replace("user/login");
+        window.location.replace("user/login");
       })
       .catch((error) => {
         console.log(error);
@@ -63,78 +63,53 @@ export const createUserDB = (username, password) => {
   };
 };
 
-// 회원가입 시 아이디 중복 체크
-
-// export function IdCheckFB(username) {
-//   return (dispatch, getState) => {
-//     // console.log("아이디가 들어와버렷", id); 
-//     instance
-//       .post("/user", {
-//         username: username,
-//       })
-//       .then((res) => {
-//         console.log(res);
-//         if (res.data) {
-//           console.log("아이디 사용가능");
-//           window.alert("사용 가능한 아이디입니다!");
-//         } else {
-//           console.log("아이디 중복");
-//           window.alert("이미 사용중인 아이디입니다!");
-//         }
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//    };
-// }
-
-
 // 로그인
 export function loginUserDB(id, pwd) {
-//   const res = RESP.LOGIN;
-//   console.log(res);
-//   const accessToken = res.user.token;
-//   if (!accessToken) {
-//     window.alert("없어");
-//   }
-//   return (dispatch) => {
-//     if (accessToken) {
-//       console.log(accessToken);
-//       //쿠키에 토큰 저장
-//       setCookie("is_login", `${accessToken}`);
+  return (dispatch) => {
+    axios
+      .post(
+        "http://54.180.99.78/user/login",
+        {
+          username: id,
+          password: pwd,
+        }
+        // { withCredentials: true }
+      )
+      // instance
+      //   .post("/user/login", {
+      //     username: id,
+      //     password: pwd,
+      //   },{ withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+        // const currentUserId = res.data[0].id;
+        // document.cookie = "id" + "=" + currentUserId;
+        // console.log(document.cookie);
+        // dispatch(
+        //   setUser({
+        //     username: res.data.username,
+        //     id: res.data.id,
+        //   })
+        // );
 
-//       window.alert("로그인성공~~~~");
-//     }
-//   };
-    return (dispatch) => {
-        instance
-          .post("/user", {
-            username: id,
-            password: pwd,
-          })
-          .then((res) => {
-            console.log(res);
-            dispatch(
-              setUser({
-                email: res.data.email,
-                nickname: res.data.nickname,
-              })
-            );
-            const accessToken = res.data.token;
-            //쿠키에 토큰 저장
-            setCookie("is_login", `${accessToken}`);
-            //document.location.href = "/";
-          });
-}
-
+        if (res.data.result === false) {
+          alert(res.data.err_msg);
+        } else {
+          alert("로그인 성공");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 }
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // do reducer stuff
-    case "SET_USER":
-      console.log(action, state);
+    case "user/SET_USER":
+      console.log(action);
       return {};
     default:
       return state;

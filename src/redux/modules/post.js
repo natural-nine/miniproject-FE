@@ -1,19 +1,19 @@
 import axios from "axios";
 
-
 // 액션
-// const LOAD = "posts/LOAD";
+const LOAD = "post/LOAD";
 // const CREATE = "posts/CREATE";
 // // const UPDATE = "posts/UPDATE";
-const GET = "posts/GET";
+
+// 초기값
+const initialState = {
+  list: [],
+};
 
 // 액션생성함수
-// export function load_posts(post_list) {
-//   return { type: LOAD, post_list };
-// }
 
-export function getPost(post_list) {
-  return { type: GET, post_list };
+export function loadPost(post_list) {
+  return { type: LOAD, post_list };
 }
 
 // export function update_post(post_data) {
@@ -21,13 +21,15 @@ export function getPost(post_list) {
 // }
 
 //미들웨어
-export const getPostDB = () => {
+export const loadPostDB = () => {
   return function (dispatch) {
-    axios
-      .get("http://localhost:5001/LIST")
-        .then((res) => {
-        //   console.log(res)
-        dispatch(getPost(res.data));
+    // http://54.180.99.78/products
+
+    axios // http://localhost:5001/LIST
+      .get("http://54.180.99.78/products")
+      .then((res) => {
+        console.log(res);
+        dispatch(loadPost(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -35,20 +37,12 @@ export const getPostDB = () => {
   };
 };
 
-// 초기값
-const initialState = {
-  list: [],
-};
-
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    // case "posts/LOAD": {
-    //   return { is_loaded: true, list: action.post_list };
-    // }
-
-      case "posts/GET": {
-          return {list: action.post_list}
+    case "post/LOAD": {
+      return { list: action.post_list };
     }
+
     // case "posts/CREATE": {
     //   const new_post_list = [...state.posts, action.post_data];
     //   return { ...state, list: new_post_list };

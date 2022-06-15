@@ -36,10 +36,13 @@ export function setUser(user) {
 //axios
 
 const instance = axios.create({
-  //baseURL: "http://13.124.56.79",
-  baseURL: "http://54.180.99.78",
+
+
 
   //baseURL: "http://localhost:5001",
+
+
+  baseURL: "http://54.180.99.78/",
 
   //   headers: { authorization: `Bearer ${getCookie("token")}` },
 });

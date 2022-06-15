@@ -66,13 +66,13 @@ const Bid = () => {
             <H4>경매 진행중</H4>
             
             <BidInnerBox>
-                <span>금액</span><span>????</span>
+                <span>금액</span><span>500,000</span>
             </BidInnerBox>
             <BidInnerBox>
-            <span>만료시간</span><span>????</span>
+            <span>만료시간</span><span>2022-06-24-18:13</span>
             </BidInnerBox>
             <BidInnerBox>
-            <span>입찰자</span><span>????</span>
+            <span>입찰자</span><span>13 명</span>
             </BidInnerBox>
             
         </BidBox>

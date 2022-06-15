@@ -69,13 +69,20 @@ export function loginUserDB(id, pwd) {
       )
       .then((res) => {
         console.log(res);
-        const token = res.headers.jsessionid;
-        setCookie("is_login", `${token}`);
+
         let response = res.data;
         if (!response.result) {
           alert(response.err_msg);
         } else {
-          // Server에서 쿠키를 만들어서 보낼 때
+          const token = res.headers.jsessionid;
+          setCookie("is_login", `${token}`);
+
+          dispatch(
+            setUser({
+              username: res.data.username,
+            })
+          );
+
           // window.location.href = "/";
         }
       })
@@ -85,13 +92,15 @@ export function loginUserDB(id, pwd) {
   };
 }
 
+// 로그아웃
+
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // do reducer stuff
     case "user/SET_USER":
       console.log(action);
-      return {};
+      return { list: action.user, is_login: true };
     default:
       return state;
   }

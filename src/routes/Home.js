@@ -10,6 +10,9 @@ const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const list = useSelector((state) => state.product.list);
+  const user_list = useSelector((state) => state.user);
+
+  console.log(user_list);
   console.log(list);
   React.useEffect(() => {
     dispatch(loadProductDB());

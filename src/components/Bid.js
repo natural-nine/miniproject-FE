@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes, useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { isDarkAtom } from "../recoilTheme";
 import { loadProductDB } from "../redux/modules/productPost";
 import BidDetail from "./BidDetail";
 import Modal from "./Modal";
 
 const Bid = (detailProduct) => {
   const [isBidDetail, setIsBidDetail] = useState(false);
-
+  const isAtom = useRecoilValue(isDarkAtom)
   const param = useParams();
   const [isEndTime, setIsEndTime] = useState(false);
   const [bidCount, setBidCount] = useState(0);
@@ -56,10 +58,19 @@ const Bid = (detailProduct) => {
   return (
     <Wrap>
       <BidBox>
-        <H4>경매 진행중</H4>
-
+      
+        {isEndTime ? (
+          <H4>경매 종료</H4>
+        ) : (
+          <H4>경매 진행중 ...</H4>
+        )}
         <BidInnerBox>
+        {isEndTime ? (
+          <span>낙찰 금액</span>
+        ) : (
           <span>금액</span>
+        )}
+  
           <span>{detailProduct?.props.price.toLocaleString()}</span>
         </BidInnerBox>
         <BidInnerBox>
@@ -67,8 +78,7 @@ const Bid = (detailProduct) => {
           <span>{detailProduct?.props.endtime}</span>
         </BidInnerBox>
         <BidInnerBox>
-          <span>입찰자</span>
-          <span>{detailProduct?.props.count}</span>
+
         </BidInnerBox>
       </BidBox>
       <DesBox>
@@ -104,7 +114,7 @@ const Wrap = styled.div`
     width: 150px;
     padding-right: 15px;
     font-size: 16px;
-    color: #212121;
+    color: ${(props)=>props.theme.textColor};
   }
 `;
 
@@ -119,10 +129,11 @@ const H4 = styled.h4`
   align-items: center;
   margin-top: 0px;
   margin-bottom: 20px;
+  color:${(props)=>props.theme.textColor}
 `;
 
 const BidInnerBox = styled.div`
-  //justify-content: space-between;
+  
   margin-top: 40px;
 `;
 const DesBox = styled.div`

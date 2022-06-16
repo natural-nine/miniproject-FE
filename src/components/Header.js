@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import App from "../css/App.css";
+
 
 import Login from "../routes/Login";
 import Signup from "../routes/Signup";
 import { logoutDB } from "../redux/modules/user";
-import { getCookie } from "../shared/cookie";
+
 import Modal from "./Modal";
+import { useRecoilState } from "recoil";
+import { isDarkAtom } from "../recoilTheme";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,11 +19,12 @@ const Header = () => {
   const login = sessionStorage.getItem("is_login");
   const data = document?.cookie;
   const userName = data.split("=")[0];
+  const [isAtom, setIsAtom] = useRecoilState(isDarkAtom)
 
   // 모달창 관련
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpen_, setModalOpen_] = useState(false);
-
+  const [isDark, setIsDark] = useState(false);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -35,10 +38,15 @@ const Header = () => {
   const closeModal_ = () => {
     setModalOpen_(false);
   };
-
+  const onClick = () => {
+    setIsDark((prev)=>!prev)
+    setIsAtom((prev)=>!prev)
+    console.log(isAtom)
+  }
   return (
     <Wrap>
       <div>
+        <button onClick={onClick}>{isDark ? ("dark"):("light")}</button>
         <h1
           onClick={() => {
             navigate("/");
@@ -97,11 +105,12 @@ const Wrap = styled.div`
     margin: 0px;
     cursor: pointer;
     font-family: "CookieRun-Regular";
+    color:${(props)=>props.theme.textColor}
   }
 `;
 
 const Span = styled.span`
-  color: #333;
+  color: ${(props)=>props.theme.textColor};
   font-weight: 400;
   font-size: 16px;
   margin-left: 10px;

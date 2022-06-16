@@ -9,12 +9,15 @@ import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../recoilTheme";
 
 const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const list = useSelector((state) => state.product.list);
-
+  const isAtom = useRecoilValue(isDarkAtom)
+  
   React.useEffect(() => {
     dispatch(loadProductDB());
   }, []);
@@ -97,20 +100,20 @@ const Title = styled.div`
   margin-bottom: 10px;
   font-size: 15px;
   font-weight: 900;
-  color: #212121;
+  color: ${(props)=>props.theme.textColor};
 `;
 const Desc = styled.div`
   padding: 5px 16px;
   height: 40px;
   /* border: 1px solid #ddd; */
   margin-bottom: 20px;
-  color: #212121;
+  color: ${(props)=>props.theme.textColor};
   font-size: 15px;
   align-items: center;
 `;
 
 const Btn = styled.div`
-  color: #949494;
+  color: ${(props)=>props.theme.textColor};
   font-weight: 300;
   font-size: 15px;
   text-align: center;

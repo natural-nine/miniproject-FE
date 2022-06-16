@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { loadProductDB } from "../redux/modules/productPost";
 import BidDetail from "./BidDetail";
 import Modal from "./Modal";
 

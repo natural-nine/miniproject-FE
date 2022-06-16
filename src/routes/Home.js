@@ -30,7 +30,7 @@ const Main = () => {
                   <Desc>{item.description}</Desc>
                   <Btn
                     onClick={() => {
-                      navigate("/detail/:id");
+                      navigate(`/detail/${idx}`);
                     }}
                   >
                     지금 참여하기 <IoIosArrowForward />

@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { createProduct, createProductDB } from "../redux/modules/productPost";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../recoilTheme";
 
 const Wrap = styled.div`
   display: flex;
@@ -44,7 +46,7 @@ const Btn = styled.button`
   margin-top: 15px;
   font-size: 17px;
   font-weight: 400;
-  color: white;
+  color:  ${(props)=>props.theme.textColor};
   background-color: #00c4c4;
   outline: none;
   border: none;
@@ -64,7 +66,7 @@ const PriceDateBox = styled.div`
   margin-top: 20px;
 `;
 const Span = styled.span`
-  color: #212121;
+  color:  ${(props)=>props.theme.textColor};
   font-size: 14px;
 `;
 
@@ -82,7 +84,7 @@ const Upload = () => {
   const imgRef = useRef(null);
   const titleRef = useRef(null);
   const desRef = useRef(null);
-
+  const isAtom = useRecoilValue(isDarkAtom)
   const dispatch = useDispatch();
 
   const [enteredNum, setEnterdNum] = useState("0");
@@ -98,7 +100,7 @@ const Upload = () => {
   //일단 모든 alret 창 띄움 다음에 컴포넌트로 바꿀거임
   const onSubmit = async (e) => {
     e.preventDefault();
-
+    
     let choiceTime = timeRef.current.value;
     let choiceTime2 = choiceTime.substring(0, 10);
     let choiceTime3 = choiceTime.substring(11);

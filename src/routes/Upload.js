@@ -11,24 +11,46 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 40px 80px;
 `;
 
 const UploadForm = styled.form`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 5px 5px 20px #dadada;
+  align-items: center;
 `;
 const TitleBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 450px;
-  margin-bottom: 25px;
+  //display: flex;
+  // justify-content: space-between;
+  //width: 450px;
+  margin: 20px 0;
 `;
 const Input = styled.input`
-  width: 365px;
+  border-radius: 7px;
+  width: 300px;
   height: 30px;
+  padding: 3px 10px;
+  outline: none;
+  border: 1px solid #949494;
 `;
-const Btn = styled.button``;
+const Btn = styled.button`
+  width: 50px;
+  height: 35px;
+  margin-top: 15px;
+  font-size: 17px;
+  font-weight: 400;
+  color: white;
+  background-color: #00c4c4;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+`;
 
 const Img = styled.img`
   width: 250px;
@@ -41,11 +63,18 @@ const PriceDateBox = styled.div`
   flex-direction: column;
   margin-top: 20px;
 `;
-const Span = styled.span``;
+const Span = styled.span`
+  color: #212121;
+  font-size: 14px;
+`;
 
 const Input2 = styled.input`
   width: 300px;
   height: 30px;
+  padding: 3px 10px;
+  border-radius: 7px;
+  outline: none;
+  border: 1px solid #949494;
 `;
 
 const Upload = () => {
@@ -163,20 +192,21 @@ const Upload = () => {
   return (
     <Wrap>
       <UploadForm onSubmit={onSubmit}>
-        <TitleBox>
+        {/* <TitleBox>
           <Input ref={titleRef} placeholder="상품명" />
           <Btn>등록!</Btn>
-        </TitleBox>
+        </TitleBox> */}
 
         <Img src={isImg} />
-        <Input
+        <input
           style={{ marginBottom: "20px" }}
           onChange={onImgChange}
           ref={imgRef}
           type="file"
           accept="image/*"
         />
-
+        <Input ref={titleRef} placeholder="상품명" />
+        <br />
         <Input2 ref={desRef} placeholder="상품 설명" />
 
         <PriceDateBox>
@@ -199,6 +229,9 @@ const Upload = () => {
             min={curruntTime}
           />
         </PriceDateBox>
+        <TitleBox>
+          <Btn>등록</Btn>
+        </TitleBox>
       </UploadForm>
     </Wrap>
   );

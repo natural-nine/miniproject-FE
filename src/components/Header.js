@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import App from "../css/App.css";
 
 import Login from "../routes/Login";
 import Signup from "../routes/Signup";
@@ -12,7 +13,9 @@ import Modal from "./Modal";
 const Header = () => {
   const navigate = useNavigate();
 
-  const login = getCookie("is_login");
+  const login = sessionStorage.getItem("is_login");
+  const data = document?.cookie;
+  const userName = data.split("=")[0];
 
   // 모달창 관련
   const [modalOpen, setModalOpen] = useState(false);
@@ -40,11 +43,12 @@ const Header = () => {
             navigate("/");
           }}
         >
-          LOGO
+          경매나라
         </h1>
       </div>
 
-      <div>
+      <Welcome>
+        {login ? <Username>{userName} 님 환영합니다 :) </Username> : ""}
         {login ? (
           <Span onClick={logoutDB}>로그아웃</Span>
         ) : (
@@ -56,23 +60,23 @@ const Header = () => {
           <Login />
         </Modal>
 
-        {/* <Span
-          onClick={() => {
-            navigate("/user/signup");
-          }}
-        >
-          회원가입
-        </Span> */}
         {login ? (
-          <Span>새 글 등록</Span>
+          <Span
+            onClick={() => {
+              navigate("/upload");
+            }}
+          >
+            새 글 등록
+          </Span>
         ) : (
           <Span onClick={openModal_}>회원가입</Span>
         )}
+
         {/* <Span onClick={openModal_}>회원가입</Span> */}
         <Modal open={modalOpen_} close={closeModal_} header="">
           <Signup />
         </Modal>
-      </div>
+      </Welcome>
     </Wrap>
   );
 };
@@ -89,6 +93,7 @@ const Wrap = styled.div`
   & h1 {
     margin: 0px;
     cursor: pointer;
+    font-family: "CookieRun-Regular";
   }
 `;
 
@@ -97,7 +102,28 @@ const Span = styled.span`
   font-weight: 400;
   font-size: 16px;
   margin-left: 10px;
+  padding: 10px;
   cursor: pointer;
+
+  &:hover {
+    transition: background-color 0.2s ease-in-out;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+  }
+`;
+
+const Username = styled.span`
+  color: #333;
+  font-weight: 400;
+  font-size: 16px;
+  margin-left: 10px;
+`;
+
+const Welcome = styled.div`
+  display: flex;
+  width: 370px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Header;

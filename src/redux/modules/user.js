@@ -80,8 +80,8 @@ export function loginUserDB(id, pwd) {
           alert(response.err_msg);
         } else {
           const token = res.headers.jsessionid;
-          setCookie("is_login", `${token}`);
-          sessionStorage.setItem(`${username}`, `${token}`);
+          setCookie(username, `${token}`);
+          sessionStorage.setItem("is_login", `${token}`);
           dispatch(
             setUser({
               username: res.data.username,
@@ -104,7 +104,7 @@ export function logoutDB() {
     console.log(result);
     if (result === true) {
       sessionStorage.clear();
-      deleteCookie("is_login");
+      deleteCookie(document.cookie);
       window.location.href = "/";
     }
   });
@@ -116,7 +116,7 @@ export default function reducer(state = initialState, action = {}) {
     // do reducer stuff
     case "user/SET_USER":
       console.log(action);
-      return { list: action.user, is_login: true };
+      return { list: action.user };
 
     case "user/LOGOUT":
     default:

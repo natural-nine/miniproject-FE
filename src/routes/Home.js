@@ -6,6 +6,10 @@ import { loadProductDB } from "../redux/modules/productPost";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
 const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,12 +21,19 @@ const Main = () => {
 
   return (
     <Wrap>
+      <Slider />
       {list !== undefined &&
         list.map((item, idx) => {
           return (
             <ListItem key={idx} endChk={item.status}>
               <ItemBox>
-                <div style={{ overflow: "hidden", height: "200px" }}>
+                <div
+                  style={{
+                    overflow: "hidden",
+                    height: "220px",
+                    backgroundColor: "gold",
+                  }}
+                >
                   <Img src={item.image} />
                 </div>
                 <TitleBox>
@@ -47,22 +58,23 @@ const Main = () => {
 const Wrap = styled.div`
   display: flex;
   flex-wrap: wrap;
+  min-width: 873px;
   padding: 40px 80px;
   box-sizing: border-box;
 `;
 
 const ListItem = styled.div`
-  /* background-color: olive; */
-  /* border:1px solid black; */
   width: 25%;
   padding: 0 16px;
+  margin-bottom: 30px;
+
   box-sizing: border-box;
   filter: ${(props) => (props.endChk ? "" : "grayscale(100%)")};
 `;
 
 const ItemBox = styled.div`
   border: 1px solid #ddd;
-  height: 370px;
+  height: 390px;
 `;
 const TitleBox = styled.div`
   padding: 0 16px;
@@ -71,10 +83,9 @@ const TitleBox = styled.div`
 
 const Img = styled.img`
   background-color: aliceblue;
-
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 220px;
+  object-fit: fill;
   transition: all 0.2s linear;
   cursor: pointer;
   &:hover {
@@ -84,18 +95,22 @@ const Img = styled.img`
 
 const Title = styled.div`
   padding: 12px 16px;
-
   margin-bottom: 10px;
+  font-size: 15px;
+  color: #212121;
 `;
 const Desc = styled.div`
-  padding: 12px 16px;
+  padding: 5px 16px;
   height: 40px;
   border: 1px solid #ddd;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  color: #212121;
+  font-size: 15px;
+  align-items: center;
 `;
 
 const Btn = styled.div`
-  color: rgba(0, 0, 0, 0.54);
+  color: #949494;
   font-weight: 300;
   font-size: 15px;
   text-align: center;

@@ -10,7 +10,6 @@ function App() {
       <Mobile />
       <Pc />
       <Header />
-
       <AppRouter />
     </Wrap>
   );

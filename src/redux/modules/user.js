@@ -53,8 +53,10 @@ export const createUserDB = (username, password) => {
         { withCredentials: true }
       )
       .then((res) => {
+        console.log(res);
         window.alert("회원가입 완료!");
         window.location.href = "/user/login";
+        deleteCookie(document.cookie);
       })
       .catch((error) => {
         console.log(error);

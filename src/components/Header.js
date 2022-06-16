@@ -12,7 +12,8 @@ import Modal from "./Modal";
 
 const Header = () => {
   const navigate = useNavigate();
-
+  const test = useSelector((state) => state);
+  console.log(test);
   const login = sessionStorage.getItem("is_login");
   const data = document?.cookie;
   const userName = data.split("=")[0];
@@ -48,7 +49,7 @@ const Header = () => {
       </div>
 
       <Welcome>
-        {login ? <Username>{userName} 님 환영합니다 :) </Username> : ""}
+        {/* {login ? <Username>{userName} 님 환영합니다 :) </Username> : ""} */}
         {login ? (
           <Span onClick={logoutDB}>로그아웃</Span>
         ) : (
@@ -82,6 +83,7 @@ const Header = () => {
 };
 
 const Wrap = styled.div`
+  background-color: #9bd4d2;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -89,6 +91,7 @@ const Wrap = styled.div`
   height: 58px;
   align-content: center;
   padding: 7px 80px;
+  border-radius: 15px;
 
   & h1 {
     margin: 0px;
@@ -121,7 +124,7 @@ const Username = styled.span`
 
 const Welcome = styled.div`
   display: flex;
-  width: 370px;
+  width: 200px;
   justify-content: center;
   align-items: center;
 `;

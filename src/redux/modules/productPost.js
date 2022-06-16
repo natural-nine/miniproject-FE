@@ -58,7 +58,7 @@ export const loadProductDB = () => {
     axios // http://localhost:5001/LIST
       .get("http://54.180.99.78/api/product")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         dispatch(loadProduct(res.data));
       })
       .catch((err) => {
@@ -98,10 +98,10 @@ export const createProductDB = (title, img, price, des, time) => {
 
 // 삭제
 
-export const deleteProductDB = () => {
+export const deleteProductDB = (uid) => {
   return function (dispatch) {
     axios
-      .delete("")
+      .delete(`http://54.180.99.78/api/product/1/${uid}`)
       .then((res) => {
         console.log(res);
         // window.alert("리뷰가 삭제되었습니다!");
@@ -119,7 +119,7 @@ export const bidProductDB = (pid, uid, price) => {
       .post(`http://54.180.99.78/bid/${pid}/${uid}`, { price: price })
       .then((res) => {
         console.log(res);
-        window.alert("제품 등록 완료!");
+        window.alert("입찰 완료!");
         //window.location.replace("user/login");
       })
       .catch((error) => {

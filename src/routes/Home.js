@@ -31,7 +31,6 @@ const Main = () => {
                   style={{
                     overflow: "hidden",
                     height: "220px",
-                    backgroundColor: "gold",
                   }}
                 >
                   <Img src={item.image} />
@@ -82,7 +81,7 @@ const TitleBox = styled.div`
 `;
 
 const Img = styled.img`
-  background-color: aliceblue;
+  //background-color: aliceblue;
   width: 100%;
   height: 220px;
   object-fit: fill;
@@ -97,12 +96,13 @@ const Title = styled.div`
   padding: 12px 16px;
   margin-bottom: 10px;
   font-size: 15px;
+  font-weight: 900;
   color: #212121;
 `;
 const Desc = styled.div`
   padding: 5px 16px;
   height: 40px;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   margin-bottom: 20px;
   color: #212121;
   font-size: 15px;

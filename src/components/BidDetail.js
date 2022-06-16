@@ -3,8 +3,10 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 import styled from "styled-components";
+import { isDarkAtom } from "../recoilTheme";
 import { bidProductDB, loadCountDB, loadProductDB } from "../redux/modules/productPost";
 
 const Form = styled.form`
@@ -34,6 +36,7 @@ const Btn = styled.button`
 const BidDetail = (detailProduct) => {
     const [enteredNum, setEnterdNum] = useState("0");
     const [cuPrice, setCuPrice] = useState(0);
+    const isAtom = useRecoilValue(isDarkAtom)
     const priceRef = useRef(null)
     const params = useParams()
     const dispatch = useDispatch()

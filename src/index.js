@@ -12,11 +12,9 @@ root.render(
   //<React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
-    
     <RecoilRoot>
       <App />
       </RecoilRoot>
-    
     </BrowserRouter>
   </Provider>
   //</React.StrictMode>

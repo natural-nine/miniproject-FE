@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
+import Slide from "../components/Slide";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -20,37 +20,39 @@ const Main = () => {
   }, []);
 
   return (
-    <Wrap>
-      <Slider />
-      {list !== undefined &&
-        list.map((item, idx) => {
-          return (
-            <ListItem key={idx} endChk={item.status}>
-              <ItemBox>
-                <div
-                  style={{
-                    overflow: "hidden",
-                    height: "220px",
-                  }}
-                >
-                  <Img src={item.image} />
-                </div>
-                <TitleBox>
-                  <Title>{item.title}</Title>
-                  <Desc>{item.description}</Desc>
-                  <Btn
-                    onClick={() => {
-                      navigate(`/detail/${idx}`);
+    <>
+      <Slide />
+      <Wrap>
+        {list !== undefined &&
+          list.map((item, idx) => {
+            return (
+              <ListItem key={idx} endChk={item.status}>
+                <ItemBox>
+                  <div
+                    style={{
+                      overflow: "hidden",
+                      height: "220px",
                     }}
                   >
-                    지금 참여하기 <IoIosArrowForward />
-                  </Btn>
-                </TitleBox>
-              </ItemBox>
-            </ListItem>
-          );
-        })}
-    </Wrap>
+                    <Img src={item.image} />
+                  </div>
+                  <TitleBox>
+                    <Title>{item.title}</Title>
+                    <Desc>{item.description}</Desc>
+                    <Btn
+                      onClick={() => {
+                        navigate(`/detail/${idx}`);
+                      }}
+                    >
+                      지금 참여하기 <IoIosArrowForward />
+                    </Btn>
+                  </TitleBox>
+                </ItemBox>
+              </ListItem>
+            );
+          })}
+      </Wrap>
+    </>
   );
 };
 

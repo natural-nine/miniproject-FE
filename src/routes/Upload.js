@@ -136,7 +136,15 @@ const Upload = () => {
     //   })
     // );
 
-    dispatch(createProductDB(titleRef.current.value, isFileUrl, numberPrice, desRef.current.value,  choiceTime4))
+    dispatch(
+      createProductDB(
+        titleRef.current.value,
+        isFileUrl,
+        numberPrice,
+        desRef.current.value,
+        choiceTime4
+      )
+    );
     // let data = {
     //     title: titleRef.current.value,
     //     image: isFileUrl,
@@ -149,7 +157,7 @@ const Upload = () => {
   };
   const timeLimit = () => {
     let choiceTime = timeRef.current.value;
-    console.log(choiceTime, curruntTime)
+    console.log(choiceTime, curruntTime);
     if (choiceTime < curruntTime) {
       alert("이전 시간은 선택할 수 없습니다.");
       console.log("hello!");

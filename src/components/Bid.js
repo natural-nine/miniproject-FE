@@ -45,7 +45,7 @@ const Bid = (detailProduct) => {
     setIsBidDetail((prev) => !prev);
     //console.log(isBidDetail);
   };
-
+  console.log(detailProduct);
   useEffect(() => {
     if (productTime <= currentTimeLimit) {
       setIsEndTime(true);
@@ -73,6 +73,7 @@ const Bid = (detailProduct) => {
       </BidBox>
       <DesBox>
         <span>상품설명</span>
+        <span>{detailProduct?.props.description}</span>
       </DesBox>
       <BidBtnBox>
         {isEndTime ? (
@@ -126,7 +127,7 @@ const BidInnerBox = styled.div`
   margin-top: 40px;
 `;
 const DesBox = styled.div`
-  border: 1px solid #ddd;
+  //border: 1px solid #ddd;
   height: 50px;
   margin: 50px 0px 20px 0px;
   padding: 5px;

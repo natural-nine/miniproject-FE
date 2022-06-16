@@ -13,7 +13,7 @@ import Modal from "./Modal";
 const Header = () => {
   const navigate = useNavigate();
   const test = useSelector((state) => state);
-  console.log(test);
+
   const login = sessionStorage.getItem("is_login");
   const data = document?.cookie;
   const userName = data.split("=")[0];
@@ -83,7 +83,7 @@ const Header = () => {
 };
 
 const Wrap = styled.div`
-  background-color: #9bd4d2;
+  //background-color: #9bd4d2;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

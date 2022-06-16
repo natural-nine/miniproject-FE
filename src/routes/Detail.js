@@ -18,6 +18,7 @@ const Detail = () => {
 
   const list = useSelector((state) => state?.product?.list);
   const detailProduct = list[params.id];
+  console.log(detailProduct);
   const onSubmit = (e) => {
     e.preventDefault();
   };
